@@ -1,21 +1,22 @@
-// import { responsiveFontSizes } from "@mui/material"
 import { useEffect, useState } from "react";
-import fetchPuppies from "../assets/API/index.js";
+import { fetchPuppies } from "../assets/API/index.js";
 import "../assets/API/index.js";
+import NewPlayerForm from "./NewPlayerForm.jsx";
+import PlayerList from "./PlayerList.jsx";
+// import NewPlayerForm from "./NewPlayerForm.jsx";
 
 export default function AllPlayers() {
-  <><h1>All Players</h1></>;
+  <>
+    <h1>All Players</h1>
+  </>;
   const [players, setPlayers] = useState([]);
-//   console.log(players);
+  // const [search, setSearch] = useState("");
+  //   console.log(players);
   useEffect(() => {
     async function fetchPlayers() {
       try {
         const response = await fetchPuppies();
-        // const response = await fetch(
-        //   "https://fsa-puppy-bowl.herokuapp.com/api/2306-GHP-ET-WEB-FT-SF/players"
-        // );
-        // const result = await response.json(); 
-        setPlayers(response)
+        setPlayers(response);
       } catch (error) {
         console.error(error);
       }
@@ -23,27 +24,30 @@ export default function AllPlayers() {
     fetchPlayers();
   }, []);
 
-  // fetchPlayers();
-  // return(
-  //     <>
-  //     <h1> All players</h1>
-  //     <table>
-  //         <thead>
-  //             <tr>pups</tr>
-  //         </thead>
-  //         <tbody>
-  //             <tr>
-  //                 <td>Name</td>
-  //                 <td>Age</td>
-  //                 <td>Breed</td>
-  //             </tr>
-  //             {ConstantSourceNode.map((contact) => {
-  //                 return(
-  //                     <
-  //                 )
-  //             })}
-  //         </tbody>
-  //    </table>
-  // </>
-  // )
+    const playersDisplay = search
+      ? players.filter((player) => player.name.toLowerCase().includes(search))
+      : players;
+
+  return (
+    <>
+      <h1> All players</h1>
+      <div>
+        ÷
+        <label>
+          Search:{""}
+          <input
+            placeholder="search"
+            onChange={(e) => setSearch(e.target.value.toLowerCase())}
+          />
+        </label>
+        <NewPlayerForm/>
+        {error && <p>{{error}}</p>}
+        {playersDisplay.map((player) => {
+        return <PlayerList key={player.id} player={player}/>})}
+        {/* <h2> Name: {player.name}</h2> */}
+        {/* <h2> Breed: {player.breed}</h2> */}
+        {/* <h2>Id: {player.id}</h2> */}
+      </div>
+    </>
+  );
 }
