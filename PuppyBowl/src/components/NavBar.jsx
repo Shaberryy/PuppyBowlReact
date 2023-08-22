@@ -2,7 +2,8 @@ import { Link } from "react-router-dom"
 
 export default function NavBar() {
   return (
-    <>
+    <> 
+    <h1>Puppy Bowl</h1>
       <div>
         <div id="navbar" className="nav">
           <Link to="/"> All Players </Link>
@@ -10,7 +11,14 @@ export default function NavBar() {
           <Link to="/Players"> Single Player </Link>
         </div>
       </div>
-      <h1>Nav</h1>
+     
+      <label>
+          Search:{""}
+          <input
+            placeholder="search"
+            onChange={(e) => setSearch(e.target.value.toLowerCase())}
+          />
+        </label>
     </>
   );
 }

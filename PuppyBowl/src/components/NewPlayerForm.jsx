@@ -1,5 +1,5 @@
 export default function NewPlayerForm(){
     return(
-        <h1>new player form</h1>
+        <h1>Register Puppy!</h1>
     )
 }
